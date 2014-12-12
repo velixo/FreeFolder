@@ -28,7 +28,7 @@ public class FileAddItem extends JMenuItem {
 				JFileChooser chooser = new JFileChooser();
 				int returnVal = chooser.showDialog(parent, "Track file");
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					model.trackFile(chooser.getSelectedFiles());
+					model.trackFiles(chooser.getSelectedFiles());
 				}
 			}
 		});
