@@ -12,15 +12,15 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.Model;
 import model.ModelClass;
 
 public class MainWindow extends JFrame implements Observer {
 	private static final long serialVersionUID = 433106539000278200L;
-	private ModelClass model;
+	private Model model;
 	
 	private JMenuBar menubar;
 	private FileMenu menuFile;
@@ -32,13 +32,13 @@ public class MainWindow extends JFrame implements Observer {
 	
 	
 	
-	public MainWindow(ModelClass model) {
+	public MainWindow(Model model) {
 		super("FileSync");
 		//TODO look for config file in directory
 		//TODO if config found,
 		this.model = model;
 		//TODO check if ((Observable) model).addObserver(this); is better implementation
-		model.addObserver(this);
+		((ModelClass) model).addObserver(this);
 
 		//initialize menuBar
 		menubar = new JMenuBar();
