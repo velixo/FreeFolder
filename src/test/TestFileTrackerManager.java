@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class TestFileTrackerManager {
 	
 	@Test
 	public void testTrackFiles() {
-		FileTracker ft1 = new FileTracker("ft1");
-		FileTracker ft2 = new FileTracker("ft2");
+		FileTracker ft1 = new FileTracker(new File("ft1"));
+		FileTracker ft2 = new FileTracker(new File("ft2"));
 		ftManager.trackFile(ft1);
 		ftManager.trackFile(ft2);
 		List<FileTracker> actual = ftManager.getTrackedFiles();
