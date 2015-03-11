@@ -1,7 +1,7 @@
-### Story 0:
+### Story 0: DONE
 Implement stub architecture
 
-### Story 1a:
+### Story 1a: DONE
 Possibility to:
 * Add files to tracking list
 * Remove files from tracking list

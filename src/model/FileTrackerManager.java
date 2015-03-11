@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileTrackerManager {
@@ -7,15 +8,14 @@ public class FileTrackerManager {
 	private List<FileTracker> fileTrackers;
 	
 	public FileTrackerManager() {
-		//TODO implement
+		fileTrackers = new ArrayList<FileTracker>();
 	}
 	
 	public void trackFile(FileTracker ft) {
-		//TODO implement
+		fileTrackers.add(ft);
 	}
 	
 	public List<FileTracker> getTrackedFiles() {
-		//TODO implement
-		return null;
+		return fileTrackers;
 	}
 }
