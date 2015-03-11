@@ -52,3 +52,94 @@ table {
  * END OF CSS RESET
  *
  ************************/
+
+body {
+	background-color: #cce7ff;
+	font-family: Arial, sans-serif;
+	color: #222;
+}
+
+
+#window {
+	display: inline-block;
+	margin-left: 100px;
+	margin-top: 50px;
+
+	background-color: #999999;
+	padding: 1px 1px 1px 1px;
+ 	
+	border: 1px solid #777;
+ 	box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+}
+#programtitle {
+	padding: 8px;
+	color: #333;
+	font-family: Arial, sans-serif;
+}
+
+#mainContainer {
+ 	background-color: #fff;
+	min-height: 400px;
+	width: 800px; 
+	border: 1px solid #777;
+}
+
+nav {
+	width: inherit;
+	background-color: #eee;
+	border-bottom: 1px;
+	border-color: #ddd;
+	border-style: solid;
+}
+
+nav ul li {
+	display: inline-block;
+	font-size: 14px;
+	padding: 5px;
+	padding-right: 10px;
+}
+
+#fileswindow {
+	padding: 25px;
+}
+
+#fileswindow ul {
+	background-color: #ddd;
+}
+
+#fileswindow li {
+	background-color: #fff;
+	color: #999;
+	padding: 10px 0px 10px 0px;
+	margin-bottom: 1px;
+}
+
+#fileswindow p {
+	color: #aaa;
+	padding: 4px;
+}
+
+.filename {
+	display: inline-block;
+}
+
+.extrainfo {
+	display: inline-block;
+	float: right;
+}
+
+#fileswindow .updating p {
+	color: #6be;
+}
+
+#fileswindow .needsupdate p {
+	color: #77c;
+}
+
+#fileswindow .uploaded p {
+	color: #8b6;
+}
+
+#fileswindow .uploading p {
+	color: #f6e;
+}
