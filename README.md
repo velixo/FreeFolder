@@ -2,7 +2,7 @@ RealtimeFileSyncThing
 =====================
 
 ======================
-~~ Trello: https://trello.com/b/HBpCsYul/realtime-file-sync ~~
+~~Trello: https://trello.com/b/HBpCsYul/realtime-file-sync~~
 
 Scratch that above. Trello is not currently being used, I would recommend looking at stories.md instead to see what stories are implemented and whats left. By stories I mean the same kind of stories that are used in Agile development, such as XP.
 
