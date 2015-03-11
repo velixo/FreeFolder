@@ -9,7 +9,9 @@ Possibility to:
 ### Story 1b:
 GUI with possibility to:
 * See currently tracked files
-* Button to get file tracking dialog
+* See when it was last modified and by whom
+* On hover, see with more detail when it was uploaded and such
+* Track new files via a dialog
 
 ### Story 2:
 Server program, that holds all the files with possibility to:
@@ -21,7 +23,8 @@ Server program, that holds all the files with possibility to:
 * On serverside filechange, download and replace file from the server.
 
 ### Story 4:
-Authentication when connecting to server program
+* Authentication window when connecting to filesync server, with:
+* Username for this client computer, server access password.
 
 ### Story 5:
 * Drag and drop files in desktop environment to program GUI to track them
