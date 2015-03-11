@@ -64,8 +64,10 @@ public class GUI extends JFrame implements Observer {
 
 	private JMenuBar initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("<html><p style='margin: 5 35 5 35'>File</p></html>");
-		JMenu editMenu = new JMenu("<html><p style='margin: 5 35 5 35'>Edit</p></html>");
+		JMenu fileMenu = new JMenu("<html><p style='margin: 5 40 5 40'>File</p></html>");
+		JMenu editMenu = new JMenu("<html><p style='margin: 5 40 5 40'>Edit</p></html>");
+		fileMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, borderGray));
+		editMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, borderGray));
 		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
