@@ -76,6 +76,7 @@ body {
  	box-shadow: 3px 3px 12px rgba(0,0,0,.15);
 }
 #programtitle {
+	text-align: center;
 	padding: 8px;
 	color: #333;
 	font-family: Arial, sans-serif;
