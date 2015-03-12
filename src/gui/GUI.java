@@ -1,11 +1,11 @@
 package gui;
 
+import gui.components.FileMenu;
 import gui.components.FileTrackerInfoContainer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Insets;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.UIManager;
 
 import model.FileTracker;
@@ -26,8 +25,8 @@ import model.FileTrackerManager;
 public class GUI extends JFrame implements Observer {
 	private static final long serialVersionUID = -4343086109680697375L;
 	private static final String programTitle = "FreeFolder";
-	private static final Color textGray = Color.decode("#808080");
-	private static final Color borderGray = Color.decode("#d0d0d0");
+	public static final Color TEXT_GRAY = Color.decode("#808080");
+	public static final Color BORDER_GRAY = Color.decode("#d0d0d0");
 	private Observable observable;
 	private FileTrackerManager ftm;
 	
@@ -36,8 +35,8 @@ public class GUI extends JFrame implements Observer {
 		observable.addObserver(this);
 		this.observable = observable;
 		ftm = (FileTrackerManager) observable;
-
 		initLookAndFeel();
+
 		JMenuBar menuBar = initMenuBar();
 		JPanel fileTrackerPanel = initFileTrackerPanel(ftm.getTrackedFiles());
 		add(menuBar, BorderLayout.NORTH);
@@ -59,20 +58,23 @@ public class GUI extends JFrame implements Observer {
 		Font f = new Font("Arial", Font.PLAIN, 16);
 		UIManager.put("Menu.font", f);
 		UIManager.put("MenuItem.font", f);
-		UIManager.put("Menu.foreground", textGray);
+		UIManager.put("Menu.foreground", TEXT_GRAY);
 	}
 
 	private JMenuBar initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("<html><p style='margin: 5 40 5 40'>File</p></html>");
-		JMenu editMenu = new JMenu("<html><p style='margin: 5 40 5 40'>Edit</p></html>");
-		fileMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, borderGray));
-		editMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, borderGray));
+		FileMenu fileMenu = new FileMenu(this);
+//		JMenu fileMenu = new JMenu("<html><p style='margin: 5 40 5 40'>FILE</p></html>");
+		JMenu editMenu = new JMenu("<html><p style='margin: 5 40 5 40'>EDIT</p></html>");
+//		fileMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_GRAY));
+		editMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_GRAY));
+//		fileMenu.add(new TrackFileMenuItem(this));
+//		fileMenu.getPopupMenu().setBackground(Color.white);
 		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.setBackground(Color.white);
-		menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, borderGray));
+		menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER_GRAY));
 		return menuBar;
 	}
 	

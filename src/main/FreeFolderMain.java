@@ -1,7 +1,7 @@
 package main;
 
-import model.FileTrackerManager;
 import gui.GUI;
+import model.FileTrackerManager;
 
 public class FreeFolderMain {
 
