@@ -6,6 +6,8 @@ import gui.components.FileTrackerView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -88,10 +90,13 @@ public class GUI extends JFrame implements Observer {
 		for (FileTracker ft : fileTrackers) {
 			ftiContainers.add(new FileTrackerView(ft));
 		}
+		ftiContainers = generatePlaceholderFTV();
 		updateFileTrackerPanel();
-		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
-		ftPanel.setBackground(Color.white);
-		ftPanel.setBorder(BorderFactory.createEmptyBorder());
+		GridLayout ftPanelLayout = new GridLayout(0, 1, 0, 1);
+		ftPanel.setLayout(ftPanelLayout);
+//		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
+		ftPanel.setBackground(BORDER_GRAY);
+		ftPanel.setBorder(BorderFactory.createMatteBorder(0, 50, 0, 50, Color.white));
 		return ftPanel;
 	}
 	
@@ -106,5 +111,13 @@ public class GUI extends JFrame implements Observer {
 				}
 			}
 		}.start();
+	}
+	
+	private List<FileTrackerView> generatePlaceholderFTV() {
+		List<FileTrackerView> ftvList = new ArrayList<FileTrackerView>();
+		ftvList.add(new FileTrackerView(new FileTracker(new File("jklfadlh.txt"))));
+		ftvList.add(new FileTrackerView(new FileTracker(new File("ghd.txt"))));
+		ftvList.add(new FileTrackerView(new FileTracker(new File("ojoaef.jg"))));
+		return ftvList;
 	}
 }
