@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -12,8 +13,16 @@ public class FileTrackerManager extends Observable{
 		fileTrackers = new ArrayList<FileTracker>();
 	}
 	
-	public void trackFile(FileTracker ft) {
-		fileTrackers.add(ft);
+	public void trackFile(File f) {
+		fileTrackers.add(new FileTracker(f));
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void trackFiles(File[] files) {
+		for(File f : files) {
+			fileTrackers.add(new FileTracker(f));
+		}
 		setChanged();
 		notifyObservers();
 	}

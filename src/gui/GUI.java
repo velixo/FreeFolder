@@ -1,11 +1,12 @@
 package gui;
 
 import gui.components.FileMenu;
-import gui.components.FileTrackerInfoContainer;
+import gui.components.FileTrackerView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -29,6 +30,9 @@ public class GUI extends JFrame implements Observer {
 	public static final Color BORDER_GRAY = Color.decode("#d0d0d0");
 	private Observable observable;
 	private FileTrackerManager ftm;
+	private List<FileTrackerView> ftiContainers;
+	
+	private JPanel fileTrackerPanel;
 	
 	public GUI(Observable observable) {
 		super(programTitle);
@@ -38,7 +42,7 @@ public class GUI extends JFrame implements Observer {
 		initLookAndFeel();
 
 		JMenuBar menuBar = initMenuBar();
-		JPanel fileTrackerPanel = initFileTrackerPanel(ftm.getTrackedFiles());
+		fileTrackerPanel = initFileTrackerPanel(ftm.getTrackedFiles());
 		add(menuBar, BorderLayout.NORTH);
 		add(fileTrackerPanel, BorderLayout.CENTER);
 		
@@ -51,7 +55,7 @@ public class GUI extends JFrame implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+		updateFileTrackerPanel();
 	}
 	
 	private void initLookAndFeel() {
@@ -63,7 +67,7 @@ public class GUI extends JFrame implements Observer {
 
 	private JMenuBar initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		FileMenu fileMenu = new FileMenu(this);
+		FileMenu fileMenu = new FileMenu(this, ftm);
 //		JMenu fileMenu = new JMenu("<html><p style='margin: 5 40 5 40'>FILE</p></html>");
 		JMenu editMenu = new JMenu("<html><p style='margin: 5 40 5 40'>EDIT</p></html>");
 //		fileMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_GRAY));
@@ -80,14 +84,27 @@ public class GUI extends JFrame implements Observer {
 	
 	private JPanel initFileTrackerPanel(List<FileTracker> fileTrackers) {
 		JPanel ftPanel = new JPanel();
-
+		ftiContainers = new ArrayList<FileTrackerView>();
 		for (FileTracker ft : fileTrackers) {
-			FileTrackerInfoContainer fileContainer = new FileTrackerInfoContainer(ft);
-			ftPanel.add(fileContainer);
+			ftiContainers.add(new FileTrackerView(ft));
 		}
+		updateFileTrackerPanel();
 		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
 		ftPanel.setBackground(Color.white);
 		ftPanel.setBorder(BorderFactory.createEmptyBorder());
 		return ftPanel;
+	}
+	
+	/** Update the fileTrackerPanel in a new Thread, as to move UI workload to a separate, dedicated UI thread*/
+	private void updateFileTrackerPanel() {
+		new Thread() {
+			@Override
+			public void run() {
+				fileTrackerPanel.removeAll();
+				for(FileTrackerView ftv : ftiContainers) {
+					fileTrackerPanel.add(ftv);
+				}
+			}
+		}.start();
 	}
 }

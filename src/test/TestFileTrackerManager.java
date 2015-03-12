@@ -22,16 +22,16 @@ public class TestFileTrackerManager {
 	
 	@Test
 	public void testTrackFiles() {
-		FileTracker ft1 = new FileTracker(new File("ft1"));
-		FileTracker ft2 = new FileTracker(new File("ft2"));
-		ftManager.trackFile(ft1);
-		ftManager.trackFile(ft2);
+		File f1 = new File("f1");
+		File f2 = new File("f2");
+		ftManager.trackFile(f1);
+		ftManager.trackFile(f2);
 		List<FileTracker> actual = ftManager.getTrackedFiles();
 		
 		List<FileTracker> expected = new ArrayList<FileTracker>();
-		expected.add(ft1);
-		expected.add(ft2);
-		
+		expected.add(new FileTracker(f1));
+		expected.add(new FileTracker(f2));
+
 		assertEquals(expected, actual);
 	}
 

@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import model.FileTracker;
 
-public class FileTrackerInfoContainer extends JPanel {
+public class FileTrackerView extends JPanel {
 	public final static int PASSIVE = 1;
 	public final static int UPDATING = 2;
 	public final static int PENDING_UPDATE = 3;
@@ -19,7 +19,7 @@ public class FileTrackerInfoContainer extends JPanel {
 	private JTextField fileNameField;
 	private JTextField statusField;
 	
-	public FileTrackerInfoContainer(FileTracker ft) {
+	public FileTrackerView(FileTracker ft) {
 		super();
 		fileName = ft.getFileName();
 		status = PASSIVE;
