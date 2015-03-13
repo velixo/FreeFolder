@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.util.HashSet;
@@ -30,13 +31,7 @@ public class TestFileTrackerManager {
 		FileTracker ft1 = new FileTracker(f1);
 		expected.add(ft1);
 
-//		assertEquals(expected, actual);
-//		assertTrue(expected.containsAll(actual));
-//		assertTrue(actual.containsAll(expected));
-		System.out.println(actual.contains(ft1));
-		System.out.println(expected);
-		assertTrue(expected.contains(f1));
-		assertTrue(expected.containsAll(expected));
+		assertEquals(expected, actual);
 	}
 	
 	@Test
