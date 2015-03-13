@@ -56,18 +56,10 @@ public class GUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		updateFTIViews();
+		updateFTViews();
 		updateFileTrackerPanel();
 	}
 
-	private void updateFTIViews() {
-		ftViews.clear();
-		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
-		for(FileTracker ft : fileTrackers) {
-			ftViews.add(new FileTrackerView(ft));
-		}
-	}
-	
 	private void setMainFont() {
 		Font f = new Font("Arial", Font.PLAIN, 16);
 		UIManager.put("Menu.font", f);
@@ -94,6 +86,14 @@ public class GUI extends JFrame implements Observer {
 		ftPanel.setBackground(Color.white);
 		ftPanel.setBorder(BorderFactory.createMatteBorder(0, 50, 0, 50, Color.white));
 		return ftPanel;
+	}
+	
+	private void updateFTViews() {
+		ftViews.clear();
+		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
+		for(FileTracker ft : fileTrackers) {
+			ftViews.add(new FileTrackerView(ft));
+		}
 	}
 	
 	/** Update the fileTrackerPanel in a new Thread, as to move UI workload to a separate, dedicated UI thread*/

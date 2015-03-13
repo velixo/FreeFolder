@@ -6,11 +6,10 @@ Possibility to:
 * Add files to tracking list
 * Remove files from tracking list
 
-### Story 1b:
+### Story 1b: DONE
 GUI with possibility to:
 * See currently tracked files
 * See when it was last modified and by whom
-* On hover, see with more detail when it was uploaded and such
 * Track new files via a dialog
 
 ### Story 2:
@@ -27,6 +26,7 @@ Server program, that holds all the files with possibility to:
 * Username for this client computer, server access password.
 
 ### Story 5:
+* On hover, see with more detail when it was uploaded and such
 * Drag and drop files in desktop environment to program GUI to track them
 * Drag and drop files from program GUI to desktop to add new version of the file to your computer
 
