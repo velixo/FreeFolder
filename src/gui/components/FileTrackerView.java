@@ -45,6 +45,7 @@ public class FileTrackerView extends JPanel {
 		fileNameField.setHorizontalAlignment(JTextField.LEFT);
 		
 		statusField = new JTextField("Last modified: 2013-13-37");
+		statusField.setEditable(false);
 		statusField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 		statusField.setBackground(Color.white);
 		statusField.setFont(font);
@@ -59,28 +60,31 @@ public class FileTrackerView extends JPanel {
 	
 	@Override
 	public Dimension getPreferredSize() {
-		Dimension preferredSize = super.getPreferredSize();
-		preferredSize.height = 50;
-		return preferredSize;
+		Dimension size = super.getMaximumSize();
+		size.height = 70;
+		return size;
 	}
 	
 	@Override
 	public Dimension getMaximumSize() {
-		Dimension maxSize = super.getMaximumSize();
-		maxSize.height = 50;
-		return maxSize;
+		return getPreferredSize();
 	}
 	
 	@Override
 	public Dimension getMinimumSize() {
-		Dimension minSize = super.getMaximumSize();
-		minSize.height = 50;
-		return minSize;
+		Dimension size = new Dimension(50, 250);
+		return size;
 	}
 	
 	public void setStatus(int status) {
 		this.status = status;
 		updateTextStatus();
+	}
+	
+	public FileTrackerView setBottomBorder(boolean hasBottomBorder) {
+		if (hasBottomBorder)
+			setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, borderGray));
+		return this;
 	}
 	
 	private void updateTextStatus() {

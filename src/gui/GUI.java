@@ -1,22 +1,22 @@
 package gui;
 
+import gui.components.EditMenu;
 import gui.components.FileMenu;
 import gui.components.FileTrackerView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -32,7 +32,7 @@ public class GUI extends JFrame implements Observer {
 	public static final Color BORDER_GRAY = Color.decode("#d0d0d0");
 	private Observable observable;
 	private FileTrackerManager ftm;
-	private List<FileTrackerView> ftiContainers;
+	private List<FileTrackerView> ftViews;
 	
 	private JPanel fileTrackerPanel;
 	
@@ -41,7 +41,7 @@ public class GUI extends JFrame implements Observer {
 		observable.addObserver(this);
 		this.observable = observable;
 		ftm = (FileTrackerManager) observable;
-		initLookAndFeel();
+		setMainFont();
 
 		JMenuBar menuBar = initMenuBar();
 		fileTrackerPanel = initFileTrackerPanel(ftm.getTrackedFiles());
@@ -56,26 +56,28 @@ public class GUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+		updateFTIViews();
 		updateFileTrackerPanel();
 	}
+
+	private void updateFTIViews() {
+		ftViews.clear();
+		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
+		for(FileTracker ft : fileTrackers) {
+			ftViews.add(new FileTrackerView(ft));
+		}
+	}
 	
-	private void initLookAndFeel() {
+	private void setMainFont() {
 		Font f = new Font("Arial", Font.PLAIN, 16);
 		UIManager.put("Menu.font", f);
 		UIManager.put("MenuItem.font", f);
-		UIManager.put("Menu.foreground", TEXT_GRAY);
 	}
 
 	private JMenuBar initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		FileMenu fileMenu = new FileMenu(this, ftm);
-//		JMenu fileMenu = new JMenu("<html><p style='margin: 5 40 5 40'>FILE</p></html>");
-		JMenu editMenu = new JMenu("<html><p style='margin: 5 40 5 40'>EDIT</p></html>");
-//		fileMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_GRAY));
-		editMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_GRAY));
-//		fileMenu.add(new TrackFileMenuItem(this));
-//		fileMenu.getPopupMenu().setBackground(Color.white);
+		EditMenu editMenu = new EditMenu();
 		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
@@ -84,18 +86,12 @@ public class GUI extends JFrame implements Observer {
 		return menuBar;
 	}
 	
-	private JPanel initFileTrackerPanel(List<FileTracker> fileTrackers) {
+	private JPanel initFileTrackerPanel(Set<FileTracker> fileTrackers) {
 		JPanel ftPanel = new JPanel();
-		ftiContainers = new ArrayList<FileTrackerView>();
-		for (FileTracker ft : fileTrackers) {
-			ftiContainers.add(new FileTrackerView(ft));
-		}
-		ftiContainers = generatePlaceholderFTV();
+		ftViews = new ArrayList<FileTrackerView>();
 		updateFileTrackerPanel();
-		GridLayout ftPanelLayout = new GridLayout(0, 1, 0, 1);
-		ftPanel.setLayout(ftPanelLayout);
-//		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
-		ftPanel.setBackground(BORDER_GRAY);
+		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
+		ftPanel.setBackground(Color.white);
 		ftPanel.setBorder(BorderFactory.createMatteBorder(0, 50, 0, 50, Color.white));
 		return ftPanel;
 	}
@@ -106,9 +102,13 @@ public class GUI extends JFrame implements Observer {
 			@Override
 			public void run() {
 				fileTrackerPanel.removeAll();
-				for(FileTrackerView ftv : ftiContainers) {
-					fileTrackerPanel.add(ftv);
+				if (ftViews != null && ftViews.size() >= 1) {
+					for (int i = 0; i < ftViews.size() - 1; i++) {
+						fileTrackerPanel.add(ftViews.get(i).setBottomBorder(true));
+					}
+					fileTrackerPanel.add(ftViews.get(ftViews.size()-1).setBottomBorder(false));
 				}
+				fileTrackerPanel.validate();
 			}
 		}.start();
 	}
