@@ -1,16 +1,16 @@
 package model;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Observable;
+import java.util.Set;
 
 public class FileTrackerManager extends Observable{
 	
-	private List<FileTracker> fileTrackers;
+	private Set<FileTracker> fileTrackers;
 	
 	public FileTrackerManager() {
-		fileTrackers = new ArrayList<FileTracker>();
+		fileTrackers = new HashSet<FileTracker>();
 	}
 	
 	public void trackFile(File f) {
@@ -27,7 +27,7 @@ public class FileTrackerManager extends Observable{
 		notifyObservers();
 	}
 	
-	public List<FileTracker> getTrackedFiles() {
+	public Set<FileTracker> getTrackedFiles() {
 		return fileTrackers;
 	}
 }

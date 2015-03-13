@@ -1,10 +1,10 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.FileTracker;
 import model.FileTrackerManager;
@@ -24,12 +24,19 @@ public class TestFileTrackerManager {
 	public void testTrackFile() {
 		File f1 = new File("f1");
 		ftManager.trackFile(f1);
-		List<FileTracker> actual = ftManager.getTrackedFiles();
+		Set<FileTracker> actual = ftManager.getTrackedFiles();
 		
-		List<FileTracker> expected = new ArrayList<FileTracker>();
-		expected.add(new FileTracker(f1));
+		Set<FileTracker> expected = new HashSet<FileTracker>();
+		FileTracker ft1 = new FileTracker(f1);
+		expected.add(ft1);
 
-		assertEquals(expected, actual);
+//		assertEquals(expected, actual);
+//		assertTrue(expected.containsAll(actual));
+//		assertTrue(actual.containsAll(expected));
+		System.out.println(actual.contains(ft1));
+		System.out.println(expected);
+		assertTrue(expected.contains(f1));
+		assertTrue(expected.containsAll(expected));
 	}
 	
 	@Test
@@ -39,9 +46,9 @@ public class TestFileTrackerManager {
 		File f3 = new File("f3");
 		File[] files = {f1, f2, f3};
 		ftManager.trackFiles(files);
-		List<FileTracker> actual = ftManager.getTrackedFiles();
+		Set<FileTracker> actual = ftManager.getTrackedFiles();
 		
-		List<FileTracker> expected = new ArrayList<FileTracker>();
+		Set<FileTracker> expected = new HashSet<FileTracker>();
 		expected.add(new FileTracker(f1));
 		expected.add(new FileTracker(f2));
 		expected.add(new FileTracker(f3));
