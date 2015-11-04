@@ -30,17 +30,15 @@ public class GUI extends JFrame implements Observer {
 	private static final String programTitle = "FreeFolder";
 	public static final Color TEXT_GRAY = Color.decode("#808080");
 	public static final Color BORDER_GRAY = Color.decode("#d0d0d0");
-	private Observable observable;
 	private FileTrackerManager ftm;
 	private List<FileTrackerView> ftViews;
 	
 	private JPanel fileTrackerPanel;
 	
-	public GUI(Observable observable) {
+	public GUI(FileTrackerManager ftm) {
 		super(programTitle);
-		observable.addObserver(this);
-		this.observable = observable;
-		ftm = (FileTrackerManager) observable;
+		ftm.addObserver(this);
+		this.ftm = ftm;
 		setMainFont();
 
 		JMenuBar menuBar = initMenuBar();
