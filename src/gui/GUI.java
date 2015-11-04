@@ -19,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import model.FileTracker;
@@ -69,7 +70,12 @@ public class GUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		updateFTViews();
+		//reload filetracker views
+		ftViews.clear();
+		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
+		for(FileTracker ft : fileTrackers) {
+			ftViews.add(new FileTrackerView(ft));
+		}
 		updateFileTrackerPanel();
 	}
 
@@ -79,18 +85,8 @@ public class GUI extends JFrame implements Observer {
 		UIManager.put("MenuItem.font", f);
 	}
 
-	private void updateFTViews() {
-		ftViews.clear();
-		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
-		for(FileTracker ft : fileTrackers) {
-			ftViews.add(new FileTrackerView(ft));
-		}
-	}
-	
-	/** Update the fileTrackerPanel in a new Thread, as to move UI workload to a separate, dedicated UI thread*/
 	private void updateFileTrackerPanel() {
-		new Thread() {
-			@Override
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				fileTrackerPanel.removeAll();
 				if (ftViews != null && ftViews.size() >= 1) {
@@ -101,7 +97,7 @@ public class GUI extends JFrame implements Observer {
 				}
 				fileTrackerPanel.validate();
 			}
-		}.start();
+		});
 	}
 	
 	private List<FileTrackerView> generatePlaceholderFTV() {
