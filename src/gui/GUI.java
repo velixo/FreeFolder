@@ -41,15 +41,30 @@ public class GUI extends JFrame implements Observer {
 		this.ftm = ftm;
 		setMainFont();
 
-		JMenuBar menuBar = initMenuBar();
-		fileTrackerPanel = initFileTrackerPanel(ftm.getTrackedFiles());
+		JMenuBar menuBar = new JMenuBar();
+		FileMenu fileMenu = new FileMenu(this, ftm);
+		EditMenu editMenu = new EditMenu();
+		menuBar.add(fileMenu);
+		menuBar.add(editMenu);
+		fileTrackerPanel = new JPanel();
+		ftViews = new ArrayList<FileTrackerView>();
+		updateFileTrackerPanel();
 		add(menuBar, BorderLayout.NORTH);
 		add(fileTrackerPanel, BorderLayout.CENTER);
 		
-		setBackground(Color.white);
-		setSize(700, 500);
+		setStyling(menuBar, fileTrackerPanel);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void setStyling(JMenuBar menuBar, JPanel ftPanel) {
+		menuBar.setBackground(Color.white);
+		menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER_GRAY));
+		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
+		ftPanel.setBackground(Color.white);
+		ftPanel.setBorder(BorderFactory.createMatteBorder(0, 50, 0, 50, Color.white));
+		setBackground(Color.white);
+		setSize(700, 500);
 	}
 
 	@Override
@@ -64,28 +79,6 @@ public class GUI extends JFrame implements Observer {
 		UIManager.put("MenuItem.font", f);
 	}
 
-	private JMenuBar initMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		FileMenu fileMenu = new FileMenu(this, ftm);
-		EditMenu editMenu = new EditMenu();
-		
-		menuBar.add(fileMenu);
-		menuBar.add(editMenu);
-		menuBar.setBackground(Color.white);
-		menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER_GRAY));
-		return menuBar;
-	}
-	
-	private JPanel initFileTrackerPanel(Set<FileTracker> fileTrackers) {
-		JPanel ftPanel = new JPanel();
-		ftViews = new ArrayList<FileTrackerView>();
-		updateFileTrackerPanel();
-		ftPanel.setLayout(new BoxLayout(ftPanel, BoxLayout.PAGE_AXIS));
-		ftPanel.setBackground(Color.white);
-		ftPanel.setBorder(BorderFactory.createMatteBorder(0, 50, 0, 50, Color.white));
-		return ftPanel;
-	}
-	
 	private void updateFTViews() {
 		ftViews.clear();
 		Set<FileTracker> fileTrackers = ftm.getTrackedFiles();
