@@ -99,12 +99,4 @@ public class GUI extends JFrame implements Observer {
 			}
 		});
 	}
-	
-	private List<FileTrackerView> generatePlaceholderFTV() {
-		List<FileTrackerView> ftvList = new ArrayList<FileTrackerView>();
-		ftvList.add(new FileTrackerView(new FileTracker(new File("jklfadlh.txt"))));
-		ftvList.add(new FileTrackerView(new FileTracker(new File("ghd.txt"))));
-		ftvList.add(new FileTrackerView(new FileTracker(new File("ojoaef.jg"))));
-		return ftvList;
-	}
 }
