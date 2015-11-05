@@ -4,14 +4,28 @@ import java.io.File;
 
 
 public class FileTracker {
+	public final static int UNCHANGED = 1;
+	public final static int CHANGED = 2;
+	public final static int MISSING = 3;
+	
 	private File file;
+	private int status;
 
 	public FileTracker(File file) {
 		this.file = file;
+		status = UNCHANGED;
 	}
 	
 	public String getFileName() {
 		return file.getName();
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+	
+	public void setStatus(int newStatus) {
+		status = newStatus;
 	}
 	
 	@Override
