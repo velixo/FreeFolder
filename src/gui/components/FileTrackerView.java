@@ -14,18 +14,18 @@ import javax.swing.JTextField;
 import model.FileTracker;
 
 public class FileTrackerView extends JPanel {
-	public final static int PASSIVE = 1;
+	public final static int UNCHANGED = 1;
 	public final static int UPDATING = 2;
-	public final static int PENDING_UPDATE = 3;
+	public final static int CHANGED = 3;
 	public final static int UPLOADING = 4;
-	public final static int RECENTLY_UPLOADED = 5;
+//	public final static int RECENTLY_UPLOADED = 5;
 	
 	private final static Color borderGray = GUI.BORDER_GRAY;
-	private final static Color COL_PASSIVE= GUI.TEXT_GRAY;
-	private final static Color COL_UPDATING = Color.decode("#60b0e0");
-	private final static Color COL_PENDING_UPDATE = Color.decode("#7070c0");
-	private final static Color COL_UPLOADING = Color.decode("#f060e0");
-	private final static Color COL_RECENTLY_UPLOADED = Color.decode("#80b060");
+	private final static Color COL_UNCHANGED= GUI.TEXT_GRAY;
+	private final static Color COL_UPDATING = Color.decode("#7f4cfb");
+	private final static Color COL_CHANGED = Color.decode("#7070c0");
+	private final static Color COL_UPLOADING = Color.decode("#60b0e0");
+//	private final static Color COL_RECENTLY_UPLOADED = Color.decode("#80b060");
 	
 	private String fileName;
 	private int status;
@@ -50,7 +50,7 @@ public class FileTrackerView extends JPanel {
 		statusField.setBackground(Color.white);
 		statusField.setFont(font);
 		statusField.setHorizontalAlignment(JTextField.RIGHT);
-		setStatus(PASSIVE);
+		setStatus(UNCHANGED);
 		
 		add(fileNameField);
 		add(statusField);
@@ -89,9 +89,9 @@ public class FileTrackerView extends JPanel {
 	
 	private void updateTextStatus() {
 		switch (status) {
-		case PASSIVE:
-			fileNameField.setForeground(COL_PASSIVE);
-			statusField.setForeground(COL_PASSIVE);
+		case UNCHANGED:
+			fileNameField.setForeground(COL_UNCHANGED);
+			statusField.setForeground(COL_UNCHANGED);
 			break;
 			
 		case UPDATING:
@@ -99,9 +99,9 @@ public class FileTrackerView extends JPanel {
 			statusField.setForeground(COL_UPDATING);
 			break;
 			
-		case PENDING_UPDATE:
-			fileNameField.setForeground(COL_PENDING_UPDATE);
-			statusField.setForeground(COL_PENDING_UPDATE);
+		case CHANGED:
+			fileNameField.setForeground(COL_CHANGED);
+			statusField.setForeground(COL_CHANGED);
 			break;
 			
 		case UPLOADING:
@@ -109,14 +109,14 @@ public class FileTrackerView extends JPanel {
 			statusField.setForeground(COL_UPLOADING);
 			break;
 			
-		case RECENTLY_UPLOADED:
-			fileNameField.setForeground(COL_RECENTLY_UPLOADED);
-			statusField.setForeground(COL_RECENTLY_UPLOADED);
-			break;
+//		case RECENTLY_UPLOADED:
+//			fileNameField.setForeground(COL_RECENTLY_UPLOADED);
+//			statusField.setForeground(COL_RECENTLY_UPLOADED);
+//			break;
 
 		default:
-			fileNameField.setForeground(COL_PASSIVE);
-			statusField.setForeground(COL_PASSIVE);
+			fileNameField.setForeground(COL_UNCHANGED);
+			statusField.setForeground(COL_UNCHANGED);
 			break;
 		}
 	}

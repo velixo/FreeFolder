@@ -50,9 +50,9 @@ public class GUI extends JFrame implements Observer {
 		fileTrackerPanel = new JPanel();
 		ftViews = new ArrayList<FileTrackerView>();
 		updateFileTrackerPanel();
+		
 		add(menuBar, BorderLayout.NORTH);
 		add(fileTrackerPanel, BorderLayout.CENTER);
-		
 		setStyling(menuBar, fileTrackerPanel);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
