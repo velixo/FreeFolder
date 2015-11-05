@@ -34,7 +34,7 @@ public class FileTrackerView extends JPanel {
 	
 	public FileTrackerView(FileTracker ft) {
 		super();
-		fileName = ft.getFileName();
+		fileName = ft.getAbsoluteFileName();
 		Font font = new Font("Arial", Font.PLAIN, 16);
 		
 		fileNameField = new JTextField(fileName);
