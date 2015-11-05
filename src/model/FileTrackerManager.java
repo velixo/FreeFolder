@@ -18,14 +18,14 @@ public class FileTrackerManager extends Observable{
 	}
 	
 	public void trackFile(File f) {
-		fileTrackers.add(new FileTracker(f));
+		fileTrackers.add(new FileTracker(f.getAbsolutePath()));
 		setChanged();
 		notifyObservers();
 	}
 	
 	public void trackFiles(File[] files) {
 		for(File f : files) {
-			fileTrackers.add(new FileTracker(f));
+			fileTrackers.add(new FileTracker(f.getAbsolutePath()));
 		}
 		setChanged();
 		notifyObservers();
