@@ -1,29 +1,27 @@
 package gui.components;
 
-import gui.GUI;
-
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 
-import model.FileTrackerManager;
+import gui.GUI;
+import model.PathTrackerManager;
 
 public class FileMenu extends FlatMenu {
 	private static final long serialVersionUID = -3641031798577935262L;
 	private Color borderGray = GUI.BORDER_GRAY;
 	private Color textGray = GUI.TEXT_GRAY;
 	
-	public FileMenu(final JFrame parent, final FileTrackerManager ftm) {
+	public FileMenu(final JFrame parent, final PathTrackerManager ftm) {
 		super("FILE");
 		fixMenuStyling();
 		add(initAddFileMenuItem(parent, ftm));
@@ -32,7 +30,7 @@ public class FileMenu extends FlatMenu {
 		popupMenu.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, borderGray));
 	}
 	
-	private JMenuItem initAddFileMenuItem(final JFrame parent, final FileTrackerManager ftm) {
+	private JMenuItem initAddFileMenuItem(final JFrame parent, final PathTrackerManager ftm) {
 		JMenuItem addFileMenuItem = new JMenuItem("Add file");
 		addFileMenuItem.setBackground(Color.white);
 		addFileMenuItem.setForeground(textGray);
@@ -44,13 +42,22 @@ public class FileMenu extends FlatMenu {
 		preferredSize.width--;
 		addFileMenuItem.setPreferredSize(preferredSize);
 		
+		Component fm = this; //fm = filemenu
 		addFileMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				FileDialog dialog = new FileDialog(parent, "Add file", FileDialog.LOAD);
-				dialog.setDirectory(System.getProperty("user.dir"));
-				dialog.setVisible(true);
-				ftm.trackFiles(dialog.getFiles());
+				String currentPath = System.getProperty("user.dir");
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Track file or folder");
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				fileChooser.setMultiSelectionEnabled(true);
+				
+				if(fileChooser.showDialog(fm, "Track") == JFileChooser.APPROVE_OPTION) {
+					File[] files = fileChooser.getSelectedFiles();
+					for(File f: files) {
+						ftm.trackFile(f);
+					}
+				}
 			}
 		});
 		return addFileMenuItem;

@@ -1,12 +1,12 @@
 package main;
 
 import gui.GUI;
-import model.FileTrackerManager;
+import model.PathTrackerManager;
 
 public class FreeFolderMain {
 
 	public static void main(String[] args) {
-		FileTrackerManager ftm = new FileTrackerManager();
+		PathTrackerManager ftm = new PathTrackerManager();
 		GUI gui = new GUI(ftm);
 	}
 }
